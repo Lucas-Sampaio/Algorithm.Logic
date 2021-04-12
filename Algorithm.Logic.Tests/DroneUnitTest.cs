@@ -118,16 +118,30 @@ namespace Algorithm.Logic.Tests
             Assert.AreEqual("(999, 999)", Program.Evaluate("L2147483647L")); // Overflow
         }
         [TestMethod]
-        public void Input_N2147483647()
+        public void Input_N2147483647L()
         {
             Assert.AreEqual("(1, 2147483647)", Program.Evaluate("N2147483647L")); // limite overflow
+        }
+        [TestMethod]
+        public void Input_N2147483647L2147483648()
+        {
+            Assert.AreEqual("(999, 999)", Program.Evaluate("N2147483647L2147483648")); //  overflow
+        }
+        [TestMethod]
+        public void Input_N0N()
+        {
+            Assert.AreEqual("(999, 999)", Program.Evaluate("N0N")); //  valor minimo
         }
         [TestMethod]
         public void Input_NNI()
         {
             Assert.AreEqual("(999, 999)", Program.Evaluate("NNI")); // Commando inválido
         }
-
+        [TestMethod]
+        public void Input_N2147483647()
+        {
+            Assert.AreEqual("(0, 2147483647)", Program.Evaluate("N2147483647")); // limite overflow com uma sigla
+        }
         [TestMethod]
         public void Input_N2147483647XN()
         {

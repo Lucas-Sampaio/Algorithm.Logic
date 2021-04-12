@@ -83,7 +83,8 @@ namespace Algorithm.Logic.Model
             valido = valido && !Regex.IsMatch(_input, @"^\d"); //verifica se começa com numero
             valido = valido && !Regex.IsMatch(_input, @"[^SNLOX0-9]"); //verifica se nao tem os caracteres aceitos
             valido = valido && !Regex.IsMatch(_input, @"[X]\d");  // verifica se tem numero dps do x
-            valido = valido && Regex.IsMatch(_input, @"[A-Z]([1-9]|214748364[0-7])?[A-Z]"); //verifica se o numero ta entre 1 e int.MaxValue
+            valido = valido && !Regex.IsMatch(_input, @"[A-Z][0]"); //verifica se o valor do passo é 0
+            valido = valido && !Regex.IsMatch(_input, @"[A-Z]214748364[8-9]"); //verifica se o numero passa do permitido
 
             return valido;
         }
@@ -101,6 +102,11 @@ namespace Algorithm.Logic.Model
             return _input;
         }
 
+        /// <summary>
+        /// Obtem as operações que serão feitas
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         private IEnumerable<string> ObterPartes(string input)
         {
             var matches = Regex.Matches(input, @"[SNLO]\d*");
@@ -109,7 +115,11 @@ namespace Algorithm.Logic.Model
                                 .ToArray();
             return partes;
         }
-
+        /// <summary>
+        /// Se a operacao tiver um passo com valor, obtem esse valor
+        /// </summary>
+        /// <param name="operacao"></param>
+        /// <returns></returns>
         private int ObterValorOperacao(string operacao)
         {
             var numero = operacao.ApenasNumeros();
